@@ -14,14 +14,5 @@ class HomeController extends Controller
         return view('about');
     }
 
-    public function blog($id,$myAuthor='author by default'){
-        $posts = [
-            1 => ['title'=> 'learn laravel 8'] ,
-            2 => ['title'=> 'learn Vuejs3' ],
-        ];
-        return view('posts.show', [
-            'data'=> $posts[$id],
-            'author'=> $myAuthor
-        ]);
-    }
+    
 }
