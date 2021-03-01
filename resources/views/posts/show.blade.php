@@ -1,7 +1,20 @@
-@extends('layout')
+@extends('layout');
 
 @section('content')
 
-    <h1> {{ $data['title'] }} </h1>
-    <p> {{ $author }} </p>
-@endsection()
+
+        <h2> {{ $post->title }} </h2>
+        <p> {{ $post->content }} </p>
+        <em> {{ $post->created_at }} </em>
+        <p>Staus: 
+        @if($post->active)
+            Enabled
+        @else
+            Disabled 
+        @endif
+        </p>
+                
+
+
+
+@endsection

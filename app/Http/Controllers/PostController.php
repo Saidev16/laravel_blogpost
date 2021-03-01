@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -14,7 +15,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        dd(Post::all());
+        
+        return view('posts.index', [
+            "posts" => Post::all()
+        ]);
     }
 
     /**
@@ -40,32 +44,30 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        dd(Post::find($id)) ;
+        return view('posts.show', [
+            "post" => Post::find($id)
+        ]);
         
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function create(){
+        return view('posts.create');
+    }
 
+    public function store(Request $request){
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+        $post = new Post();
+        $post->title = $request->input('title');
+        $post->content = $request->input('content');
 
+        $post->slug = Str::slug($post->title,"-");
+        $post->active = false ;
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+        $post->save();
 
+        $request->session()->flash('status', 'post was created');
+
+        return redirect()->route('posts.index' );
+    }
+    
 }
