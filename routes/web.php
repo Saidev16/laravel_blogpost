@@ -21,4 +21,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@home')->name('home');
 Route::get('/about', 'HomeController@about')->name('about');
 
-Route::resource('/posts', 'PostController')->only(['show','index','create','store']);
+Route::resource('/posts', 'PostController')->except(['destroy']);
